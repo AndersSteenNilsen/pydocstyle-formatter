@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "pycodestyle_autoformatter"
+name = "pydocstyle_autoformatter"
 version = "0.1.0"
 description = "will try to format pydocstyle checks."
 authors = ["Anders Steen <asteennilsen@gmail.com>"]

@@ -1,7 +1,7 @@
 from importlib.resources import path
 from select import select
 from pydocstyle import check
-from pycodestyle_autoformatter import cli, pydoc_formatter
+from pydocstyle_autoformatter import cli, pydoc_formatter
 from os.path import abspath
 import pytest
 from click.testing import CliRunner
