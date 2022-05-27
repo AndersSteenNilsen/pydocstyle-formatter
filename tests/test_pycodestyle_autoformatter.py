@@ -1,7 +1,7 @@
 from importlib.resources import path
 from select import select
 from pydocstyle import check
-from pycodestyle_autoformatter import formatter, cli
+from pycodestyle_autoformatter import cli, pydoc_formatter
 from os.path import abspath
 import pytest
 from click.testing import CliRunner
@@ -33,7 +33,7 @@ def assert_errors(filename, number_of_errors=0):
 def test_file_missing_period(create_single_missing_period):
     filename = create_single_missing_period
     assert_errors(filename=filename, number_of_errors=1)
-    formatter.format_file_d400(filename)
+    pydoc_formatter.format_file_d400(filename)
     assert_errors(filename=filename, number_of_errors=0)
 
 

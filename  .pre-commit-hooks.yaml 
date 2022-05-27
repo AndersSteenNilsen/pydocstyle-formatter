@@ -1,0 +1,6 @@
+- id: pydocstyle-D400-fixer
+  name: Pydocstyle D400 fixer
+  description: This hook adds a period on the first line of docstrings.
+  entry: pydocstyle-D400-fixer
+  language: python
+  types: [python]
