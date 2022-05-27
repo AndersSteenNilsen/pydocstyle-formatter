@@ -14,6 +14,9 @@ click = "^8.1.3"
 pytest = "^7.1.2"
 black = "latest"
 
+[tool.poetry.scripts]
+pydocstyle-D400-fixer = 'pydocstyle_autoformatter.cli:fix_D400'
+
 [tool.black]
 skip-string-normalization = "true"
 
