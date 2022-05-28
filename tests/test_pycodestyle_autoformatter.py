@@ -1,3 +1,4 @@
+from fileinput import filename
 from importlib.resources import path
 from select import select
 from pydocstyle import check
@@ -13,10 +14,12 @@ DUMMY_TMP_FILES_FOLDER = 'tests/D400/tmp/'
 DUMMY_MISSING_PERIOD_FILENAME = 'single_missing_period.py'
 
 
-@pytest.fixture()
-def create_single_missing_period():
-    src = os.path.join(DUMMY_FILES_FOLDER, DUMMY_MISSING_PERIOD_FILENAME)
-    dst = os.path.join(DUMMY_TMP_FILES_FOLDER, DUMMY_MISSING_PERIOD_FILENAME)
+@pytest.fixture(params=['single_missing_period.py', 'multi_missing_period.py', 'multi_missing_period_2.py'],
+)
+def create_temp_file(request):
+    filename=request.param
+    src = os.path.join(DUMMY_FILES_FOLDER, filename)
+    dst = os.path.join(DUMMY_TMP_FILES_FOLDER, filename)
     try:
         os.mkdir(DUMMY_TMP_FILES_FOLDER)
         shutil.copyfile(src=src, dst=dst)
@@ -30,16 +33,16 @@ def assert_errors(filename, number_of_errors=0):
     assert len(pydoc_errors) == number_of_errors
 
 
-def test_file_missing_period(create_single_missing_period):
-    filename = create_single_missing_period
+def test_file(create_temp_file):
+    filename=create_temp_file
     assert_errors(filename=filename, number_of_errors=1)
     pydoc_formatter.format_file_d400(filename)
     assert_errors(filename=filename, number_of_errors=0)
 
 
-def test_cli(create_single_missing_period):
+def test_cli(create_temp_file):
+    filename=create_temp_file
     runner = CliRunner()
-    filename = create_single_missing_period
     assert_errors(filename=filename, number_of_errors=1)
     result = runner.invoke(cli.fix_D400, [filename])
     assert_errors(filename=filename, number_of_errors=0)
